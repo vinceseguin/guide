@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">guide</string>
+
+    <!-- Main menu strings -->
+    <string name="main_menu_restaurant">Consulter le menu d\'un restaurant</string>
+    <string name="main_menu_aliment">Identifier un aliment</string>
+    <string name="main_menu_texte">Écriture d\'un texte</string>
+    <string name="main_menu_navigation">Obtenir des informations de navigations</string>
+
 </resources>
