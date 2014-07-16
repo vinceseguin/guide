@@ -1,3 +1,6 @@
+target/
+lint.xml
+bin/
 .idea
 *.iml
 gen
