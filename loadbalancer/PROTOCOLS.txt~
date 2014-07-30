@@ -1,0 +1,28 @@
+**COMMUNICATION PROTOCOLS**
+
+GUIDE_SERVER_LOADBALANCER
+REQUEST-ACTION:<action>
+REQUEST-TYPE:<type>[,<type>, ...]
+SERVER-IP:<ip>
+SERVER-PORT:<port>
+SERVER-NUMBER-OF-REQUEST:<number-of-request>
+SERVER-CPU-LOAD:<cpu-load>
+
+DESCRIPTION
+REQUEST-ACTION:L’action que le serveur envoie au répartiteur de charge.
+Valeur possible:
+	NEW:Indique au répartiteur de charge qu’il désire s’inscrire comme un serveur pouvant répondre au requête des clients.
+	UPDATE: Informe au répartiteur de charge ces informations actuelle au niveau de la charge du serveur et des requête qu’il peut accepter.
+
+REQUEST-TYPELe type de requête que le serveur peut accepter du client.
+Valeur possible:
+NAVIGATION: Indique que le serveur peut traiter les requêtes de navigation.
+
+SERVER-IP: L’adresse IP du serveur.
+
+SERVER-PORT: Le port du serveur. Optionnel, ce champ est uniquement utilisé lorsque l’action est UPDATE.
+
+SERVER-NUMBER-OF-REQUEST: Le nombre de requête actuelle du serveur. Optionnel, ce champ est uniquement utilisé lorsque l’action est UPDATE.
+
+SERVER-CPU-LOAD: La charge actuelle du serveur en pourcentage. Optionnel, ce champs est uniquement utilisé lorsque l’action est UPDATE.
+
