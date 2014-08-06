@@ -1,11 +1,10 @@
-package org.vandv.loadbalancer;
+package org.vandv.communication;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.security.KeyStore;
 
 /**
  * Created by vinceseguin on 29/07/14.
@@ -22,6 +21,8 @@ public class SocketManager {
      * Start the Socket for the Server
      */
     public void start(int port) throws IOException {
+
+        //KeyStore ks = KeyStore.getInstance("guide");
 
         SSLServerSocketFactory sslServerSocketFactory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
         SSLServerSocket sslServerSocket = (SSLServerSocket) sslServerSocketFactory.createServerSocket(port);

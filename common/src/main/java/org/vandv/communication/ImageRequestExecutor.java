@@ -11,10 +11,6 @@ import java.io.ByteArrayOutputStream;
  */
 public class ImageRequestExecutor extends RequestExecutor<Mat> {
 
-    public ImageRequestExecutor(IAsyncListener<Mat> listener) {
-        super(listener);
-    }
-
     @Override
     protected Mat transformByte(ByteArrayOutputStream out) {
         byte[] imageBytes = out.toByteArray();

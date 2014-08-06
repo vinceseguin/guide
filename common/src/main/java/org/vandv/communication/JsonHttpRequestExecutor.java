@@ -7,11 +7,6 @@ import java.io.ByteArrayOutputStream;
  */
 public class JsonHttpRequestExecutor extends RequestExecutor<String> {
 
-
-    public JsonHttpRequestExecutor(IAsyncListener<String> listener) {
-        super(listener);
-    }
-
     @Override
     protected String transformByte(ByteArrayOutputStream out) {
         return out.toString();

@@ -16,19 +16,12 @@ import java.io.IOException;
  */
 public abstract class RequestExecutor<T> {
 
-    public RequestExecutor(IAsyncListener<T> listener) {
-        super();
-        this.listener = listener;
-    }
-
-    private IAsyncListener<T> listener;
-
     /**
      * http://stackoverflow.com/questions/3505930/make-an-http-request-with-android
      * @param url
      * @return
      */
-    public T doInBackground(String url) {
+    public T execute(String url) {
         HttpClient httpclient = new DefaultHttpClient();
         HttpResponse response;
         T object = null;
@@ -51,10 +44,6 @@ public abstract class RequestExecutor<T> {
             //TODO Handle problems..
         }
         return object;
-    }
-
-    public void onPostExecute(T object) {
-        listener.receive(object);
     }
 
     protected abstract T transformByte(ByteArrayOutputStream out);

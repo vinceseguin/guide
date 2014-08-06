@@ -90,8 +90,8 @@ public class ServerManager {
 
     public void sendServerInformation(OutputStream out, Server server) {
         StringBuilder sb = new StringBuilder();
-        sb.append("GUIDE_LOADBALANCER_CLIENT");
-        sb.append("SERVER-IP:" + server.getAddress());
+        sb.append("GUIDE_LOADBALANCER_CLIENT\r\n");
+        sb.append("SERVER-IP:" + server.getAddress() + "\r\n");
         sb.append("SERVER-PORT:" + server.getPort());
 
         try {

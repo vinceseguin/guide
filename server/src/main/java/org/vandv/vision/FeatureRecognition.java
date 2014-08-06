@@ -15,21 +15,20 @@ import java.util.List;
 /**
  * Created by vinceseguin on 16/07/14.
  */
-public class FeatureRecognitionHandler extends ImageRecognitionHandler {
+public class FeatureRecognition extends ImageRecognition {
+
+    public FeatureRecognition(Mat obj1, Mat obj2) {
+        super(obj1, obj2);
+    }
 
     @Override
-    public boolean handleRequest(Mat image1, Mat image2) {
+    public boolean handleRequest() {
 
-        MatOfDMatch matches = matchDescriptors(calculateDescriptors(image1), calculateDescriptors(image2));
+        MatOfDMatch matches = matchDescriptors(obj1, obj2);
 
         List<DMatch> goodMatches = calculateGoodMatches(matches, calculateMinDistanceBetweenMatch(matches));
 
-        return goodMatches.size() / matches.rows() >= 0.5 && successor.handleRequest(image1, image2);
-    }
-
-    private Mat calculateDescriptors(Mat image) {
-        FeatureCalculator calculator = new FeatureCalculator(image);
-        return calculator.calculate();
+        return goodMatches.size() / matches.rows() >= 0.5 && successor.handleRequest();
     }
 
     private MatOfDMatch matchDescriptors(Mat descriptors1, Mat descriptors2) {

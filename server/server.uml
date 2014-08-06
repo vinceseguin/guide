@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.vandv.loadbalancer.server</OriginalElement>
+  <nodes>
+    <node x="91.0" y="489.0">org.vandv.loadbalancer.server.AbstractServerAction</node>
+    <node x="420.8199356913184" y="338.6591639871383">org.vandv.loadbalancer.server.VisualRecognitionServer</node>
+    <node x="968.2258633105574" y="823.7106109324759">org.vandv.loadbalancer.IRequestHandler</node>
+    <node x="597.8225482315113" y="957.6848874598071">org.vandv.loadbalancer.server.ServerRequestHandler</node>
+    <node x="101.25" y="800.0">org.vandv.loadbalancer.server.RegisterAction</node>
+    <node x="0.0" y="335.0">org.vandv.loadbalancer.IAction</node>
+    <node x="644.5703125" y="457.0">org.vandv.loadbalancer.ServerManager</node>
+    <node x="459.1875" y="800.0">org.vandv.loadbalancer.server.UpdateAction</node>
+    <node x="916.6875" y="1151.0">org.vandv.loadbalancer.Main</node>
+    <node x="632.80078125" y="0.0">org.vandv.loadbalancer.server.Server</node>
+    <node x="989.7652523780816" y="954.9726688102893">org.vandv.loadbalancer.SocketManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.vandv.loadbalancer.server.UpdateAction" target="org.vandv.loadbalancer.server.AbstractServerAction">
+      <point x="-71.74999999999994" y="-47.0" />
+      <point x="530.9375" y="760.0" />
+      <point x="444.25" y="760.0" />
+      <point x="117.75" y="109.5" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.RegisterAction" target="org.vandv.loadbalancer.ServerManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.ServerManager" target="org.vandv.loadbalancer.server.Server">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.Main" target="org.vandv.loadbalancer.server.ServerRequestHandler">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.ServerRequestHandler" target="org.vandv.loadbalancer.IRequestHandler">
+      <point x="114.0" y="-78.5" />
+      <point x="894.6135450160773" y="953.08038585209" />
+      <point x="947.2877604166666" y="924.0" />
+      <point x="-57.75" y="25.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.ServerRequestHandler" target="org.vandv.loadbalancer.server.UpdateAction">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.RegisterAction" target="org.vandv.loadbalancer.server.AbstractServerAction">
+      <point x="-71.75" y="-47.0" />
+      <point x="173.0" y="780.0" />
+      <point x="208.75" y="780.0" />
+      <point x="-117.75" y="109.5" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.AbstractServerAction" target="org.vandv.loadbalancer.IAction">
+      <point x="-117.75" y="-109.5" />
+      <point x="208.75" y="432.0" />
+      <point x="158.5" y="432.0" />
+      <point x="0.0" y="25.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.Main" target="org.vandv.loadbalancer.SocketManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.ServerRequestHandler" target="org.vandv.loadbalancer.server.RegisterAction">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.AbstractServerAction" target="org.vandv.loadbalancer.server.VisualRecognitionServer">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.ServerRequestHandler" target="org.vandv.loadbalancer.ServerManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.UpdateAction" target="org.vandv.loadbalancer.ServerManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.SocketManager" target="org.vandv.loadbalancer.IRequestHandler">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.server.VisualRecognitionServer" target="org.vandv.loadbalancer.server.Server">
+      <point x="0.0" y="-47.0" />
+      <point x="580.0305466237942" y="289.7106109324759" />
+      <point x="688.9674479166666" y="288.0" />
+      <point x="-112.33333333333333" y="131.5" />
+    </edge>
+    <edge source="org.vandv.loadbalancer.Main" target="org.vandv.loadbalancer.ServerManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5845864661654135" x="532.7781350482315" y="742.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

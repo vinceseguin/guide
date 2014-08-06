@@ -1,4 +1,4 @@
-package org.vandv.navigation;
+package org.vandv.vision;
 
 /**
  * Created by vinceseguin on 23/07/14.

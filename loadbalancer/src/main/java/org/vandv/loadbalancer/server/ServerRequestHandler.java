@@ -2,7 +2,7 @@ package org.vandv.loadbalancer.server;
 
 import org.apache.commons.io.IOUtils;
 import org.vandv.loadbalancer.IAction;
-import org.vandv.loadbalancer.IRequestHandler;
+import org.vandv.communication.IRequestHandler;
 import org.vandv.loadbalancer.ServerManager;
 
 import java.io.IOException;
@@ -29,12 +29,10 @@ public class ServerRequestHandler implements IRequestHandler {
         List<String> lines = IOUtils.readLines(socket.getInputStream());
 
         try  {
-            while (true) {
-                IAction action = createAction(lines.get(1));
-                action.execute(socket.getOutputStream(), lines);
+            IAction action = createAction(lines.get(1));
+            action.execute(socket.getOutputStream(), lines);
 
-                socket.close();
-            }
+            socket.close();
         } catch (Exception exception) {
             //TODO
         }

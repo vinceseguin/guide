@@ -24,6 +24,7 @@ class ConnectAction implements IAction {
     public void execute(OutputStream out, List<String> lines) throws Exception {
         String requestType = lines.get(PROTOCOL_NUMBER_REQUEST_LINE_INDEX).split(":")[1];
         Server server = serverManager.getNextAvailableServer(requestType);
+        server.setCurrentNumberOfRequest(server.getCurrentNumberOfRequest() + 1);
         serverManager.sendServerInformation(out, server);
     }
 }

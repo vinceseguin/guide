@@ -1,4 +1,4 @@
-package org.vandv.loadbalancer;
+package org.vandv.communication;
 
 import java.io.IOException;
 import java.net.Socket;

@@ -18,6 +18,7 @@ public class MapsApiObjectFactory {
     private static final String GEOCODING_API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
     private static final String STREET_VIEW_API_URL = "https://maps.googleapis.com/maps/api/streetview?size=400x400&";
 
+    @Deprecated
     public static void getLocation(String address, final IAsyncListener<Location> listener, IRequestStrategy<String> strategy) {
 
         IAsyncListener<String> httpListener = new IAsyncListener<String>() {
@@ -40,15 +41,19 @@ public class MapsApiObjectFactory {
             }
         };
 
-        JsonHttpRequestExecutor executor = new JsonHttpRequestExecutor(httpListener);
+        JsonHttpRequestExecutor executor = new JsonHttpRequestExecutor();
         strategy.executeRequest(executor, GEOCODING_API_URL + URLEncoder.encode(address));
     }
 
-    public static void getStreetViewImage(final String address, final IAsyncListener<Mat> listener, IRequestStrategy<Mat> strategy) {
-        ImageRequestExecutor executor = new ImageRequestExecutor(listener);
+    public static Mat getStreetViewImage(final String address) {
+        ImageRequestExecutor executor = new ImageRequestExecutor();
         StringBuilder sb = new StringBuilder();
         sb.append(STREET_VIEW_API_URL);
-        sb.append("location=" + URLEncoder.encode(address));
-        strategy.executeRequest(executor, sb.toString());
+        try {
+            sb.append("location=" + URLEncoder.encode(address, "UTF-8"));
+        } catch (Exception ex) {
+            //TODO
+        }
+        return executor.execute(sb.toString());
     }
 }
