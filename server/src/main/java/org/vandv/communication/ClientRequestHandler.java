@@ -1,5 +1,7 @@
 package org.vandv.communication;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.vandv.vision.NewDestinationAction;
 import org.vandv.vision.VisualRecognitionAction;
 import org.vandv.vision.VisualRecognitionManager;
@@ -14,6 +16,8 @@ import java.util.List;
  */
 public class ClientRequestHandler implements IRequestHandler {
 
+    private static final Logger logger = LogManager.getLogger(ClientRequestHandler.class.getName());
+
     private static final String VISUAL_RECOGNITION_ACTION = "VISUAL_RECOGNITION";
     private static final String REGISTER_DESTINATION_TYPE = "REGISTER_DESTINATION";
     private static final int REQUEST_ACTION_LINE_INDEX = 1;
@@ -22,8 +26,8 @@ public class ClientRequestHandler implements IRequestHandler {
 
     private VisualRecognitionManager visualRecognitionManager;
 
-    public ClientRequestHandler(VisualRecognitionManager visualRecognitionManager) {
-        this.visualRecognitionManager = visualRecognitionManager;
+    public ClientRequestHandler() {
+        this.visualRecognitionManager = VisualRecognitionManager.getInstance();
     }
 
     @Override
@@ -47,7 +51,7 @@ public class ClientRequestHandler implements IRequestHandler {
             IAction action = createAction(lines);
             action.execute(socket.getOutputStream(), lines, data);
         } catch (Exception exception) {
-            //TODO
+            logger.error(exception.getMessage());
         }
     }
 

@@ -9,6 +9,8 @@ public class Destination {
     private String address;
     private Mat image;
     private Mat features;
+    private Mat histogram;
+    private int timer = 0;
 
     public Mat getHistogram() {
         return histogram;
@@ -18,12 +20,22 @@ public class Destination {
         return features;
     }
 
-    private Mat histogram;
-
     public Destination(String address, Mat image, Mat features, Mat histogram) {
         this.address = address;
         this.image = image;
         this.features = features;
         this.histogram = histogram;
+    }
+
+    public void tick() {
+        this.timer += VisualRecognitionManager.TICK_DURATION;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
     }
 }
