@@ -5,6 +5,7 @@ bin/
 *.iml
 gen
 out
+*.uml
 
 # Compiled Object files
 *.slo
