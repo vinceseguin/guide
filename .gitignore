@@ -28,3 +28,8 @@ out
 *.exe
 *.out
 *.app
+
+# Eclipse
+.classpath
+.project
+*.prefs

@@ -3,8 +3,6 @@ package org.vandv.loadbalancer.server;
 import org.junit.Assert;
 import org.junit.Test;
 import org.vandv.loadbalancer.IAction;
-import org.vandv.loadbalancer.ServerManager;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +11,7 @@ public class AbsractServerActionTest {
 
     @Test
     public void testNewAction() {
-        ServerManager sm = new ServerManager();
-        IAction action = new RegisterAction(sm);
+        IAction action = new RegisterAction();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -31,8 +28,7 @@ public class AbsractServerActionTest {
 
     @Test
     public void testUpdateExecute() {
-        ServerManager sm = new ServerManager();
-        IAction action = new UpdateAction(sm);
+        IAction action = new UpdateAction();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -49,8 +45,7 @@ public class AbsractServerActionTest {
 
     @Test
     public void testUpdateExecute2() {
-        ServerManager sm = new ServerManager();
-        IAction action = new RegisterAction(sm);
+        IAction action = new RegisterAction();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -65,7 +60,7 @@ public class AbsractServerActionTest {
             Assert.fail();
         }
 
-        action = new UpdateAction(sm);
+        action = new UpdateAction();
         lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -85,8 +80,7 @@ public class AbsractServerActionTest {
 
     @Test
     public void testInvalidExecute() {
-        ServerManager sm = new ServerManager();
-        IAction action = new UpdateAction(sm);
+        IAction action = new UpdateAction();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
