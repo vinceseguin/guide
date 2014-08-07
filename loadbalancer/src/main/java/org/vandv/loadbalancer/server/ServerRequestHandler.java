@@ -3,25 +3,21 @@ package org.vandv.loadbalancer.server;
 import org.apache.commons.io.IOUtils;
 import org.vandv.loadbalancer.IAction;
 import org.vandv.communication.IRequestHandler;
-import org.vandv.loadbalancer.ServerManager;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
 /**
+ * Handler for server's requests
+ * 
  * Created by vinceseguin on 29/07/14.
+ * Updated by vgentilcore on 06/08/14.
  */
 public class ServerRequestHandler implements IRequestHandler {
 
     private static final String REGISTER_ACTION = "REGISTER";
     private static final String UPDATE_ACTION = "UPDATE";
-
-    private ServerManager serverManager;
-
-    public ServerRequestHandler(ServerManager serverManager) {
-        this.serverManager = serverManager;
-    }
 
     @Override
     public void handleRequest(Socket socket) throws IOException {
@@ -38,11 +34,18 @@ public class ServerRequestHandler implements IRequestHandler {
         }
     }
 
+    /**
+     * Creates a new action to handle a request.
+     * 
+     * @param requestActionLine the request action identifier.
+     * @return the new action.
+     * @throws Exception
+     */
     protected IAction createAction(String requestActionLine) throws Exception {
         if (requestActionLine.contains(REGISTER_ACTION)) {
-            return new RegisterAction(this.serverManager);
+            return new RegisterAction();
         } else if (requestActionLine.contains(UPDATE_ACTION)) {
-            return new UpdateAction(this.serverManager);
+            return new UpdateAction();
         } else {
             throw new Exception("The action type is not valid, please refer to the communication protocol.");
         }

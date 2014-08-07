@@ -3,7 +3,6 @@ package org.vandv.loadbalancer.server;
 import org.junit.Assert;
 import org.junit.Test;
 import org.vandv.loadbalancer.IAction;
-import org.vandv.loadbalancer.ServerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +11,7 @@ public class ServerRequestHandlerTest {
 
     @Test
     public void createActionTest() {
-        ServerManager serverManager = new ServerManager();
-        ServerRequestHandler requestHandler = new ServerRequestHandler(serverManager);
+        ServerRequestHandler requestHandler = new ServerRequestHandler();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -32,8 +30,7 @@ public class ServerRequestHandlerTest {
 
     @Test
     public void createActionTest2() {
-        ServerManager serverManager = new ServerManager();
-        ServerRequestHandler requestHandler = new ServerRequestHandler(serverManager);
+        ServerRequestHandler requestHandler = new ServerRequestHandler();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -51,8 +48,7 @@ public class ServerRequestHandlerTest {
 
     @Test
     public void createActionTest3() {
-        ServerManager serverManager = new ServerManager();
-        ServerRequestHandler requestHandler = new ServerRequestHandler(serverManager);
+        ServerRequestHandler requestHandler = new ServerRequestHandler();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");

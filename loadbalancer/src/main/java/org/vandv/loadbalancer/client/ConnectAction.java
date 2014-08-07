@@ -1,30 +1,30 @@
 package org.vandv.loadbalancer.client;
 
-import org.vandv.loadbalancer.IAction;
+import org.apache.commons.io.IOUtils;
 import org.vandv.loadbalancer.server.Server;
-import org.vandv.loadbalancer.ServerManager;
 
+import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 
 /**
+ * A client's connect action.
+ * 
  * Created by vinceseguin on 30/07/14.
  */
-class ConnectAction implements IAction {
+class ConnectAction extends AbstractClientAction {
 
-    private static final int PROTOCOL_NUMBER_REQUEST_LINE_INDEX = 3;
+	@Override
+	public void execute(OutputStream out, Server server) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GUIDE_LOADBALANCER_CLIENT\r\n");
+        sb.append("SERVER-IP:" + server.getAddress() + "\r\n");
+        sb.append("SERVER-PORT:" + server.getPort());
 
-    private ServerManager serverManager;
-
-    public ConnectAction(ServerManager serverManager) {
-        this.serverManager = serverManager;
-    }
-
-    @Override
-    public void execute(OutputStream out, List<String> lines) throws Exception {
-        String requestType = lines.get(PROTOCOL_NUMBER_REQUEST_LINE_INDEX).split(":")[1];
-        Server server = serverManager.getNextAvailableServer(requestType);
-        server.setCurrentNumberOfRequest(server.getCurrentNumberOfRequest() + 1);
-        serverManager.sendServerInformation(out, server);
-    }
+        try {
+            IOUtils.write(sb.toString(), out);
+            out.flush();
+        } catch (IOException exception) {
+            //TODO
+        }
+	}
 }

@@ -8,13 +8,13 @@ import java.io.IOException;
 
 /**
  * Created by vinceseguin on 29/07/14.
+ * Updated by vgentilcore on 06/08/14.
  */
 public class Main {
 
     public static void main(String[] args) {
-        ServerManager serverManager = new ServerManager();
-        SocketManager serverSocketManager = new SocketManager(new ServerRequestHandler(serverManager));
-        SocketManager clientSocketManager = new SocketManager(new ClientRequestHandler(serverManager));
+        SocketManager serverSocketManager = new SocketManager(new ServerRequestHandler());
+        SocketManager clientSocketManager = new SocketManager(new ClientRequestHandler());
         try {
             serverSocketManager.start(5050);
             clientSocketManager.start(5051);
