@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.vandv.vision.NewDestinationAction;
 import org.vandv.vision.VisualRecognitionAction;
-import org.vandv.vision.VisualRecognitionManager;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Handler for client's request
+ *
  * Created by vinceseguin on 03/08/14.
  */
 public class ClientRequestHandler implements IRequestHandler {
@@ -24,12 +25,11 @@ public class ClientRequestHandler implements IRequestHandler {
     private static final int REQUEST_TYPE_LINE_INDEX = 2;
     private static final int DATA_LENGTH_LINE_INDEX = 3;
 
-    private VisualRecognitionManager visualRecognitionManager;
-
-    public ClientRequestHandler() {
-        this.visualRecognitionManager = VisualRecognitionManager.getInstance();
-    }
-
+    /**
+     * Handler the request of the client.
+     * @param socket The socket of the client.
+     * @throws IOException IOException if an I/O error occurs
+     */
     @Override
     public void handleRequest(Socket socket) throws IOException {
 
@@ -45,25 +45,34 @@ public class ClientRequestHandler implements IRequestHandler {
         int dataLength = Integer.parseInt(lines.get(DATA_LENGTH_LINE_INDEX).split(":")[1]);
 
         byte data[] = new byte[dataLength];
-        is.read(data);
+        int numberOfByteRead = is.read(data);
 
         try  {
-            IAction action = createAction(lines);
-            action.execute(socket.getOutputStream(), lines, data);
+            if (numberOfByteRead == dataLength) {
+                IAction action = createAction(lines);
+                action.execute(socket.getOutputStream(), lines, data);
+            }
         } catch (Exception exception) {
             logger.error(exception.getMessage());
         }
     }
 
+    /**
+     * Creates a new action to handle a request.
+     * @param lines the lines sent by the client
+     * @return the new action.
+     * @throws Exception The message sent by the client does not respect the protocol.
+     */
     protected IAction createAction(List<String> lines) throws Exception {
         String requestActionLine = lines.get(REQUEST_ACTION_LINE_INDEX);
         String requestTypeLine = lines.get(REQUEST_TYPE_LINE_INDEX);
 
         if (requestActionLine.contains(VISUAL_RECOGNITION_ACTION) && requestTypeLine.contains(REGISTER_DESTINATION_TYPE)) {
-            return new NewDestinationAction(visualRecognitionManager);
+            return new NewDestinationAction();
         } else if (requestActionLine.contains(VISUAL_RECOGNITION_ACTION)) {
-            return new VisualRecognitionAction(visualRecognitionManager);
+            return new VisualRecognitionAction();
         } else {
+            //TODO: Throw ProtocolFormatException instead
             throw new Exception("The action type is not valid, please refer to the communication protocol.");
         }
     }

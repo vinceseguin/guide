@@ -1,14 +1,14 @@
 package org.vandv.vision;
 
 import org.opencv.core.*;
-import org.opencv.features2d.DescriptorExtractor;
-import org.opencv.features2d.FeatureDetector;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class calculates the histogram for a given image.
+ *
  * Created by vinceseguin on 23/07/14.
  */
 public class HistogramCalculator {
@@ -19,11 +19,19 @@ public class HistogramCalculator {
     private static final float H_RANGE_MAX = 180;
     private static final float S_RANGE_MAX = 256;
 
+    /**
+     * Constructor
+     * @param image The opencv matrix containing the image.
+     */
     public HistogramCalculator(Mat image) {
         this.image = image;
     }
 
-    public Mat calculate() {
+    /**
+     * Calculate the histogram
+     * @return The histogram.
+     */
+    public Mat calculateHistogram() {
         Mat imageHsv = new Mat();
 
         Imgproc.cvtColor(image, imageHsv, Imgproc.COLOR_BGR2HSV);

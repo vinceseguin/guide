@@ -6,10 +6,14 @@ import org.opencv.core.MatOfByte;
 import org.opencv.highgui.Highgui;
 import org.vandv.communication.IAction;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
 /**
+ * This command determining if two images are from the same
+ * scene.
+ *
  * Created by vinceseguin on 03/08/14.
  */
 public class VisualRecognitionAction implements IAction {
@@ -20,12 +24,22 @@ public class VisualRecognitionAction implements IAction {
 
     private VisualRecognitionManager visualRecognitionManager;
 
-    public VisualRecognitionAction(VisualRecognitionManager visualRecognitionManager) {
-        this.visualRecognitionManager = visualRecognitionManager;
+    /**
+     *Constructor
+     */
+    public VisualRecognitionAction() {
+        this.visualRecognitionManager = VisualRecognitionManager.getInstance();
     }
 
+    /**
+     * Execute the command.
+     * @param out The OutputStream of the socket directing to the client.
+     * @param lines The lines defined by the communication protocol.
+     * @param data The data send by the client as defined in the protocol.
+     * @throws IOException if an I/O error occurs
+     */
     @Override
-    public void execute(OutputStream out, List<String> lines, byte[] data) throws Exception {
+    public void execute(OutputStream out, List<String> lines, byte[] data) throws IOException {
         String requestType = lines.get(REQUEST_TYPE_LINE_INDEX).split(":")[1];
         String[] paramsLength = lines.get(PARAMS_LENGTH_LINE_INDEX).split(":")[1].split(",");
         long requestId = Long.parseLong(lines.get(REQUEST_ID_LINE_INDEX).split(":")[1]);
@@ -34,40 +48,54 @@ public class VisualRecognitionAction implements IAction {
 
         int offset = 0;
         int nextParamLength = Integer.parseInt(paramsLength[0]);
+
         if (requestType.contains("HISTOGRAM")) {
-            byte[] histogramArr = new byte[nextParamLength];
             offset = nextParamLength;
-
-            for (int i=0; i<offset; i++) {
-                histogramArr[i] = data[i];
-            }
-
-            Mat histogram = matFromByte(histogramArr);
-
+            Mat histogram = createMat(data, nextParamLength, offset);
             nextParamLength = Integer.parseInt(paramsLength[1]);
-
-            imageRecognition.setSuccessor(new HistogramRecognition(histogram, visualRecognitionManager.getHistogram(requestId)));
+            imageRecognition.setSuccessor(new HistogramRecognition(histogram,
+                    visualRecognitionManager.getHistogram(requestId)));
         }
 
         if (requestType.contains("FEATURE")) {
-            byte[] featuresArr = new byte[nextParamLength];
-
-            for (int i=0; i<nextParamLength; i++) {
-                featuresArr[i] = data[i + offset];
-            }
-
-            Mat features = matFromByte(featuresArr);
-
-            imageRecognition.setSuccessor(new FeatureRecognition(features, visualRecognitionManager.getFeatures(requestId)));
+            Mat features = createMat(data, nextParamLength, offset);
+            imageRecognition.setSuccessor(new FeatureRecognition(features,
+                    visualRecognitionManager.getFeatures(requestId)));
         }
 
-        Boolean recognized = imageRecognition.handleRequest();
+        sendResponseToClient(out, requestId, imageRecognition.handleRequest());
+    }
 
-        StringBuilder sb = new StringBuilder();
+    /**
+     * Create a matrix with the array of data sent by the client.
+     * @param data The data sent by the client.
+     * @param length The length of byte of the matrix.
+     * @param offset The offset in the data array to start from.
+     * @return A matrix containing the data.
+     */
+    private Mat createMat(byte[] data, int length, int offset) {
+        byte[] arr = new byte[length];
+
+        System.arraycopy(data, offset, arr, 0, length);
+        MatOfByte imgMatByte = new MatOfByte();
+        imgMatByte.fromArray(arr);
+
+        return Highgui.imdecode(imgMatByte, Highgui.CV_LOAD_IMAGE_UNCHANGED);
+    }
+
+    /**
+     * Send the response to the client who sent the request.
+     * @param out The OutputStream of the socket directing to the client.
+     * @param requestId The request id sent by the client.
+     * @param recognized Whether the scene is detected in the two images.
+     * @throws IOException if an I/O error occurs
+     */
+    private void sendResponseToClient(OutputStream out, long requestId, boolean recognized) throws IOException {
+        StringBuilder sb;
+        sb = new StringBuilder();
         sb.append("GUIDE_SERVER_CLIENT_RESPONSE\r\n");
-        sb.append("REQUEST_ID:" + requestId + "\r\n");
-        sb.append("DATA_LENGTH:1" + "\r\n");
-        sb.append("PARAMS_LENGTH:1" + "\r\n");
+        sb.append("REQUEST_ID:").append(requestId).append("\r\n");
+        sb.append("DATA_LENGTH:1" + "\r\n").append("PARAMS_LENGTH:1" + "\r\n");
 
         byte[] byteRecognized = new byte[] { recognized ? (byte)1 : (byte)0 };
 
@@ -75,12 +103,5 @@ public class VisualRecognitionAction implements IAction {
         IOUtils.write(byteRecognized, out);
 
         out.flush();
-    }
-
-    private Mat matFromByte(byte[] data) {
-        MatOfByte imgMatByte = new MatOfByte();
-        imgMatByte.fromArray(data);
-
-        return Highgui.imdecode(imgMatByte, Highgui.CV_LOAD_IMAGE_UNCHANGED);
     }
 }

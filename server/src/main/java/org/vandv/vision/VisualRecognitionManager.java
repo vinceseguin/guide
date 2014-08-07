@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * The manager of the visual recognition request.
+ *
  * Created by vinceseguin on 04/08/14.
  */
 public class VisualRecognitionManager {
@@ -19,10 +21,17 @@ public class VisualRecognitionManager {
 
     private static volatile VisualRecognitionManager instance = null;
 
+    /**
+     * Private constructor for the singleton pattern.
+     */
     private VisualRecognitionManager() {
 
     }
 
+    /**
+     * Creates the single instance
+     * @return the instance
+     */
     public final static VisualRecognitionManager getInstance() {
         if(instance == null) {
             synchronized (VisualRecognitionManager.class) {
@@ -36,26 +45,49 @@ public class VisualRecognitionManager {
         return instance;
     }
 
+    /**
+     * Register a new destination
+     * @param destination the destination
+     * @return the request id the client will have to use for the future
+     */
     public long registerDestination(Destination destination) {
         long id = idGenerator.generate();
         this.destinations.put(id, destination);
         return id;
     }
 
+    /**
+     * Get the feature points for a destination.
+     * @param id
+     * @return
+     */
     public Mat getHistogram(long id) {
         destinations.get(id).setTimer(0);
         return destinations.get(id).getHistogram();
     }
 
+    /**
+     * Get the feature points for a destination.
+     * @param id the request id
+     * @return the feature points
+     */
     public Mat getFeatures(long id) {
         destinations.get(id).setTimer(0);
         return destinations.get(id).getFeatures();
     }
 
+    /**
+     * Get the current number of request for this server.
+     * @return the number of request
+     */
     public int getCurrentNumberOfRequest() {
         return destinations.size();
     }
 
+    /**
+     * Starts a new thread to monitor servers every TICK_DURATION sec.
+     * If a client has not pinged us in FLUSH_TIMER_LIMIT sec, it is removed from the list.
+     */
     public void startTicking() {
 
         new Thread(new Runnable() {
