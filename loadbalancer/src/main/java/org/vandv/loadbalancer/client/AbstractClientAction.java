@@ -14,7 +14,7 @@ import org.vandv.loadbalancer.server.Server;
  */
 public abstract class AbstractClientAction implements IAction {
 
-    private static final int PROTOCOL_NUMBER_REQUEST_LINE_INDEX = 3;
+    private static final int PROTOCOL_NUMBER_REQUEST_LINE_INDEX = 2;
 	
 	protected ServerManager serverManager;
 	

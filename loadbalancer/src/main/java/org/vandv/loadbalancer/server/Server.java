@@ -47,15 +47,6 @@ public abstract class Server implements Comparable<Server> {
     }
 
     /**
-     * Set the server's timer value.
-     * 
-     * @param timer the server's timer value.
-     */
-    public void setTimer(int timer) {
-        this.timer = timer;
-    }
-
-    /**
      * Returns the server's address.
      * 
      * @return the server's address.
@@ -107,15 +98,6 @@ public abstract class Server implements Comparable<Server> {
      */
     public void setCurrentNumberOfRequest(int currentNumberOfRequest) {
         this.currentNumberOfRequest = currentNumberOfRequest;
-    }
-
-    /**
-     * Returns the server's CPU Load.
-     * 
-     * @return the server's CPU Load.
-     */
-    public int getCpuLoad() {
-        return cpuLoad;
     }
 
     /**

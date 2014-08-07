@@ -25,6 +25,23 @@ public class AbsractServerActionTest {
             Assert.fail();
         }
     }
+    
+    @Test
+    public void testNewAction2() {
+        IAction action = new RegisterAction();
+        List<String> lines = new ArrayList<String>();
+
+        lines.add("GUIDE_SERVER_LOADBALANCER");
+        lines.add("REQUEST-ACTION:REGISTER");
+        lines.add("REQUEST-TYPE:NOT_VALID");
+        lines.add("SERVER-IP:192.168.0.1");
+        lines.add("SERVER-PORT:5050");
+        try {
+            action.execute(null, lines);
+            Assert.fail();
+        } catch (Exception ex) {
+        }
+    }
 
     @Test
     public void testUpdateExecute() {

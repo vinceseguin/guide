@@ -3,6 +3,7 @@ package org.vandv.loadbalancer.server;
 import org.apache.commons.io.IOUtils;
 import org.vandv.loadbalancer.IAction;
 import org.vandv.communication.IRequestHandler;
+import org.vandv.exceptions.InvalidActionTypeException;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -47,7 +48,7 @@ public class ServerRequestHandler implements IRequestHandler {
         } else if (requestActionLine.contains(UPDATE_ACTION)) {
             return new UpdateAction();
         } else {
-            throw new Exception("The action type is not valid, please refer to the communication protocol.");
+            throw new InvalidActionTypeException();
         }
     }
 }

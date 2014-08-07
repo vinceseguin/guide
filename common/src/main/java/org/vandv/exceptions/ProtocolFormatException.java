@@ -1,4 +1,4 @@
-package org.vandv.loadbalancer.exceptions;
+package org.vandv.exceptions;
 
 /**
  * Exception thrown when there's an error in the protocol format.

@@ -21,7 +21,7 @@ public class ServerManager {
 	private static volatile ServerManager instance = null;
 	
     public static final int TICK_DURATION = 10;
-    private static final int FLUSH_TIMER_LIMIT = 300;
+    public static final int FLUSH_TIMER_LIMIT = 30;
 
     // We use two lists to manage the servers.
     // PriorityQueue : to quickly access the less loaded server that can handle the desired request.
@@ -80,7 +80,7 @@ public class ServerManager {
      * Starts a new thread to monitor servers every TICK_DURATION sec.
      * If a server has not pinged us in FLUSH_TIMER_LIMIT sec, it is removed from the list.
      */
-    public void startTicking() {
+    private void startTicking() {
 
         new Thread(new Runnable() {
             @Override

@@ -3,6 +3,7 @@ package org.vandv.loadbalancer.client;
 import org.apache.commons.io.IOUtils;
 import org.vandv.loadbalancer.IAction;
 import org.vandv.communication.IRequestHandler;
+import org.vandv.exceptions.InvalidActionTypeException;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -27,7 +28,7 @@ public class ClientRequestHandler implements IRequestHandler {
             IAction action = createAction(lines.get(1));
             action.execute(socket.getOutputStream(), lines);
         } catch (Exception exception) {
-        	exception.printStackTrace();
+        	// exception.printStackTrace();
         }
     }
 
@@ -42,7 +43,7 @@ public class ClientRequestHandler implements IRequestHandler {
         if (requestActionLine.contains(CONNECT_ACTION)) {
             return new ConnectAction();
         } else {
-            throw new Exception("The action type is not valid, please refer to the communication protocol.");
+            throw new InvalidActionTypeException();
         }
     }
 }

@@ -1,8 +1,8 @@
 package org.vandv.loadbalancer.server;
 
+import org.vandv.exceptions.ProtocolFormatException;
 import org.vandv.loadbalancer.IAction;
 import org.vandv.loadbalancer.ServerManager;
-import org.vandv.loadbalancer.exceptions.ProtocolFormatException;
 
 import java.io.OutputStream;
 import java.util.List;
