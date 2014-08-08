@@ -1,4 +1,4 @@
-package org.vandv.vision;
+package org.vandv.server.client.vision;
 
 import org.opencv.core.Mat;
 
@@ -35,7 +35,15 @@ public abstract class ImageRecognition {
      */
     public abstract boolean handleRequest();
 
+    /**
+     * Sets the successor in the chain.
+     * @param successor the successor in the chain.
+     */
     public void setSuccessor(ImageRecognition successor) {
-        successor.setSuccessor(successor);
+        if (this.successor == null) {
+        	this.successor = successor;
+        } else {
+        	this.successor.setSuccessor(successor);
+        }
     }
 }

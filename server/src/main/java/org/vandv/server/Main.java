@@ -1,9 +1,9 @@
-package org.vandv;
+package org.vandv.server;
 
-import org.vandv.communication.ClientRequestHandler;
 import org.vandv.communication.SocketManager;
-import org.vandv.loadbalancer.ServerRegistrationManager;
-import org.vandv.vision.VisualRecognitionManager;
+import org.vandv.server.client.ClientRequestHandler;
+import org.vandv.server.client.vision.VisualRecognitionManager;
+import org.vandv.server.loadbalancer.ServerRegistrationManager;
 
 import java.io.IOException;
 

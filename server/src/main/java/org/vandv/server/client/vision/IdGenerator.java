@@ -1,4 +1,4 @@
-package org.vandv.vision;
+package org.vandv.server.client.vision;
 
 /**
  * Generates ids for the client's request

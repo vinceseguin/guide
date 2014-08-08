@@ -1,10 +1,11 @@
-package org.vandv.vision;
+package org.vandv.server.client.vision;
 
 import org.apache.commons.io.IOUtils;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfFloat;
 import org.opencv.highgui.Highgui;
-import org.vandv.communication.IAction;
+import org.vandv.server.client.IAction;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,7 +40,7 @@ public class VisualRecognitionAction implements IAction {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void execute(OutputStream out, List<String> lines, byte[] data) throws IOException {
+    public void execute(OutputStream out, List<String> lines, char[] data) throws IOException {
         String requestType = lines.get(REQUEST_TYPE_LINE_INDEX).split(":")[1];
         String[] paramsLength = lines.get(PARAMS_LENGTH_LINE_INDEX).split(":")[1].split(",");
         long requestId = Long.parseLong(lines.get(REQUEST_ID_LINE_INDEX).split(":")[1]);
@@ -48,24 +49,37 @@ public class VisualRecognitionAction implements IAction {
 
         int offset = 0;
         int nextParamLength = Integer.parseInt(paramsLength[0]);
+        
+        String str = new String(data);
+        String[] strs = str.replace("[", "").replace("]", "").split(", ");
 
         if (requestType.contains("HISTOGRAM")) {
-            offset = nextParamLength;
-            Mat histogram = createMat(data, nextParamLength, offset);
-            nextParamLength = Integer.parseInt(paramsLength[1]);
+        	float[] values = new float[nextParamLength];
+            for (int i = offset; i < nextParamLength; i++) {
+            	values[i] = Float.parseFloat(strs[i]);
+            }
+        	
+            Mat histogram = createMatFloat(values);
             imageRecognition.setSuccessor(new HistogramRecognition(histogram,
                     visualRecognitionManager.getHistogram(requestId)));
+            offset = nextParamLength;
+            nextParamLength = Integer.parseInt(paramsLength[1]);
         }
 
         if (requestType.contains("FEATURE")) {
-            Mat features = createMat(data, nextParamLength, offset);
+        	byte[] values = new byte[nextParamLength];
+            for (int i = 0, j = offset; i < nextParamLength; i++, j++) {
+            	values[i] = Byte.parseByte(strs[j]);
+            }
+        	
+            Mat features = createMatByte(values);
             imageRecognition.setSuccessor(new FeatureRecognition(features,
                     visualRecognitionManager.getFeatures(requestId)));
         }
 
         sendResponseToClient(out, requestId, imageRecognition.handleRequest());
     }
-
+    
     /**
      * Create a matrix with the array of data sent by the client.
      * @param data The data sent by the client.
@@ -73,14 +87,25 @@ public class VisualRecognitionAction implements IAction {
      * @param offset The offset in the data array to start from.
      * @return A matrix containing the data.
      */
-    private Mat createMat(byte[] data, int length, int offset) {
-        byte[] arr = new byte[length];
+    private Mat createMatFloat(float[] data) {
+        MatOfFloat imgMat = new MatOfFloat();
+        imgMat.fromArray(data);
 
-        System.arraycopy(data, offset, arr, 0, length);
-        MatOfByte imgMatByte = new MatOfByte();
-        imgMatByte.fromArray(arr);
+        return Highgui.imdecode(imgMat, Highgui.CV_LOAD_IMAGE_UNCHANGED);
+    }
+    
+    /**
+     * Create a matrix with the array of data sent by the client.
+     * @param data The data sent by the client.
+     * @param length The length of byte of the matrix.
+     * @param offset The offset in the data array to start from.
+     * @return A matrix containing the data.
+     */
+    private Mat createMatByte(byte[] data) {
+        MatOfByte imgMat = new MatOfByte();
+        imgMat.fromArray(data);
 
-        return Highgui.imdecode(imgMatByte, Highgui.CV_LOAD_IMAGE_UNCHANGED);
+        return Highgui.imdecode(imgMat, Highgui.CV_LOAD_IMAGE_UNCHANGED);
     }
 
     /**

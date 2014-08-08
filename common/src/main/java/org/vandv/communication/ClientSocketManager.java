@@ -2,6 +2,9 @@ package org.vandv.communication;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+
+import org.vandv.exceptions.ProtocolFormatException;
+
 import java.io.IOException;
 
 /**
@@ -15,7 +18,7 @@ public class ClientSocketManager {
         this.handler = handler;
     }
 
-    public void start(String address, int port) throws IOException {
+    public void start(String address, int port) throws IOException, ProtocolFormatException {
         SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
         SSLSocket socket = (SSLSocket) sslSocketFactory.createSocket(address, port);
         socket.startHandshake();

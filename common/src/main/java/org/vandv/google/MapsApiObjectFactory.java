@@ -1,5 +1,6 @@
 package org.vandv.google;
 
+import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opencv.core.Mat;
@@ -8,6 +9,7 @@ import org.vandv.communication.IRequestStrategy;
 import org.vandv.communication.ImageRequestExecutor;
 import org.vandv.communication.JsonHttpRequestExecutor;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 
 /**
@@ -45,15 +47,11 @@ public class MapsApiObjectFactory {
         strategy.executeRequest(executor, GEOCODING_API_URL + URLEncoder.encode(address));
     }
 
-    public static Mat getStreetViewImage(final String address) {
+    public static Mat getStreetViewImage(final String address) throws ClientProtocolException, IOException {
         ImageRequestExecutor executor = new ImageRequestExecutor();
         StringBuilder sb = new StringBuilder();
         sb.append(STREET_VIEW_API_URL);
-        try {
-            sb.append("location=" + URLEncoder.encode(address, "UTF-8"));
-        } catch (Exception ex) {
-            //TODO
-        }
+        sb.append("location=" + URLEncoder.encode(address, "UTF-8"));
         return executor.execute(sb.toString());
     }
 }

@@ -1,4 +1,4 @@
-package org.vandv.loadbalancer;
+package org.vandv.server.loadbalancer;
 
 import org.apache.commons.io.IOUtils;
 import org.vandv.communication.IRequestHandler;

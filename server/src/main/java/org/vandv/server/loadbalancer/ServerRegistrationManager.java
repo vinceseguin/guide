@@ -1,8 +1,9 @@
-package org.vandv.loadbalancer;
+package org.vandv.server.loadbalancer;
 
 import org.vandv.communication.ClientSocketManager;
 import org.vandv.communication.IRequestHandler;
-import org.vandv.vision.VisualRecognitionManager;
+import org.vandv.exceptions.ProtocolFormatException;
+import org.vandv.server.client.vision.VisualRecognitionManager;
 
 import java.io.IOException;
 
@@ -37,7 +38,7 @@ public class ServerRegistrationManager {
 
         try {
             clientSocketManager.start(loadBalancerIp, loadBalancerPort);
-        } catch (IOException ex) {
+        } catch (IOException | ProtocolFormatException ex) {
             //TODO
         }
     }

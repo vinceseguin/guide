@@ -20,28 +20,24 @@ public abstract class RequestExecutor<T> {
      * http://stackoverflow.com/questions/3505930/make-an-http-request-with-android
      * @param url
      * @return
+     * @throws IOException 
+     * @throws ClientProtocolException 
      */
-    public T execute(String url) {
+    public T execute(String url) throws ClientProtocolException, IOException {
         HttpClient httpclient = new DefaultHttpClient();
         HttpResponse response;
         T object = null;
-        try {
-            response = httpclient.execute(new HttpGet(url));
-            StatusLine statusLine = response.getStatusLine();
-            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                response.getEntity().writeTo(out);
-                object = transformByte(out);
-                out.close();
-            } else{
-                //Closes the connection.
-                response.getEntity().getContent().close();
-                throw new IOException(statusLine.getReasonPhrase());
-            }
-        } catch (ClientProtocolException e) {
-            //TODO Handle problems..
-        } catch (IOException e) {
-            //TODO Handle problems..
+        response = httpclient.execute(new HttpGet(url));
+        StatusLine statusLine = response.getStatusLine();
+        if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            response.getEntity().writeTo(out);
+            object = transformByte(out);
+            out.close();
+        } else{
+            //Closes the connection.
+            response.getEntity().getContent().close();
+            throw new IOException(statusLine.getReasonPhrase());
         }
         return object;
     }

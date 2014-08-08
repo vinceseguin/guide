@@ -1,4 +1,4 @@
-package org.vandv.vision;
+package org.vandv.server.client.vision;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDMatch;

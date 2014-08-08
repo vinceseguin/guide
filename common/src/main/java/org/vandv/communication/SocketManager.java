@@ -1,10 +1,12 @@
 package org.vandv.communication;
 
+import java.io.IOException;
+
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
-import java.io.IOException;
-import java.security.KeyStore;
+
+import org.vandv.exceptions.ProtocolFormatException;
 
 /**
  * Created by vinceseguin on 29/07/14.
@@ -36,7 +38,7 @@ public class SocketManager {
                     try {
                         requestHandler.handleRequest(sslSocket);
                         sslSocket.close();
-                    } catch (IOException exception) {
+                    } catch (IOException | ProtocolFormatException exception) {
                         //TODO
                     }
                 }
