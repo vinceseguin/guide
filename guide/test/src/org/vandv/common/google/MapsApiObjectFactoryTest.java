@@ -14,6 +14,6 @@ public class MapsApiObjectFactoryTest extends InstrumentationTestCase {
             public void receive(Location object) {
 
             }
-        });
+        }, null);
     }
 }

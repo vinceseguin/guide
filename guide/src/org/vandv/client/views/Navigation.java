@@ -1,5 +1,7 @@
 package org.vandv.client.views;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.ImageView;
 import android.widget.SearchView;
+
+import org.apache.http.client.ClientProtocolException;
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.vandv.R;
@@ -25,16 +29,29 @@ public class Navigation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation);
-        handleIntent(getIntent());
+        
+        try {
+			handleIntent(getIntent());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        handleIntent(intent);
+        try {
+			handleIntent(intent);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
-    private void handleIntent(Intent intent) {
+    private void handleIntent(Intent intent) throws ClientProtocolException, IOException {
         if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
             IAsyncListener<Mat> imageListener = new IAsyncListener<Mat>() {
                 @Override
@@ -43,7 +60,7 @@ public class Navigation extends Activity {
                     Utils.matToBitmap(m, bm);
 
                     // find the imageview and draw it!
-                    ImageView iv = (ImageView) findViewById(R.id.streeview);
+                    ImageView iv = (ImageView) findViewById(R.id.streetview);
                     iv.setImageBitmap(bm);
                 }
             };
@@ -52,7 +69,7 @@ public class Navigation extends Activity {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
             //CALCUL HISTOGRAME + FEATURE (IF NECESSARY)
-            MapsApiObjectFactory.getStreetViewImage(query, imageListener);
+            MapsApiObjectFactory.getStreetViewImage(query);
         }
     }
 
