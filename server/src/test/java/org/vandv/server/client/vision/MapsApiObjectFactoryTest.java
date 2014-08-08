@@ -6,7 +6,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.opencv.core.Core;
-import org.vandv.google.MapsApiObjectFactory;
+import org.vandv.common.google.MapsApiObjectFactory;
 
 public class MapsApiObjectFactoryTest {
 

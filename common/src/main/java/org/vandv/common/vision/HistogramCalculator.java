@@ -1,4 +1,4 @@
-package org.vandv.vision;
+package org.vandv.common.vision;
 
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
@@ -14,8 +14,8 @@ import java.util.List;
 public class HistogramCalculator {
     private Mat image;
 
-    private static final int H_BINS = 50;
-    private static final int S_BINS = 60;
+    public static final int H_BINS = 50;
+    public static final int S_BINS = 60;
     private static final float H_RANGE_MAX = 180;
     private static final float S_RANGE_MAX = 256;
 

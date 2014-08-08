@@ -1,9 +1,9 @@
-package org.vandv.communication;
+package org.vandv.common.communication;
 
 import java.io.IOException;
 import java.net.Socket;
 
-import org.vandv.exceptions.ProtocolFormatException;
+import org.vandv.common.exceptions.ProtocolFormatException;
 
 /**
  * Request handler's interface.

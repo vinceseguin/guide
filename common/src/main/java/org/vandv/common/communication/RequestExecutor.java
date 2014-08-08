@@ -1,4 +1,4 @@
-package org.vandv.communication;
+package org.vandv.common.communication;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

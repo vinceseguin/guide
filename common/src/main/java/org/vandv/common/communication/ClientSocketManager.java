@@ -1,9 +1,9 @@
-package org.vandv.communication;
+package org.vandv.common.communication;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.vandv.exceptions.ProtocolFormatException;
+import org.vandv.common.exceptions.ProtocolFormatException;
 
 import java.io.IOException;
 

@@ -2,8 +2,8 @@ package org.vandv.loadbalancer.server;
 
 import org.apache.commons.io.IOUtils;
 import org.vandv.loadbalancer.IAction;
-import org.vandv.communication.IRequestHandler;
-import org.vandv.exceptions.InvalidActionTypeException;
+import org.vandv.common.communication.IRequestHandler;
+import org.vandv.common.exceptions.InvalidActionTypeException;
 
 import java.io.IOException;
 import java.net.Socket;

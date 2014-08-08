@@ -1,4 +1,4 @@
-package org.vandv.exceptions;
+package org.vandv.common.exceptions;
 
 public class InvalidActionTypeException extends Exception {
 

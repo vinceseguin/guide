@@ -13,8 +13,8 @@ import android.widget.SearchView;
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.vandv.R;
-import org.vandv.communication.IAsyncListener;
-import org.vandv.google.MapsApiObjectFactory;
+import org.vandv.common.communication.IAsyncListener;
+import org.vandv.common.google.MapsApiObjectFactory;
 
 /**
  * Created by vinceseguin on 17/07/14.

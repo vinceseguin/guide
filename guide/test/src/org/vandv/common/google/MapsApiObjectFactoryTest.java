@@ -1,7 +1,7 @@
-package org.vandv.google;
+package org.vandv.common.google;
 
 import android.test.InstrumentationTestCase;
-import org.vandv.communication.IAsyncListener;
+import org.vandv.common.communication.IAsyncListener;
 
 /**
  * Created by vinceseguin on 27/07/14.

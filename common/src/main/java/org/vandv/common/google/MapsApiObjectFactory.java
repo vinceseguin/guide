@@ -1,13 +1,13 @@
-package org.vandv.google;
+package org.vandv.common.google;
 
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opencv.core.Mat;
-import org.vandv.communication.IAsyncListener;
-import org.vandv.communication.IRequestStrategy;
-import org.vandv.communication.ImageRequestExecutor;
-import org.vandv.communication.JsonHttpRequestExecutor;
+import org.vandv.common.communication.IAsyncListener;
+import org.vandv.common.communication.IRequestStrategy;
+import org.vandv.common.communication.ImageRequestExecutor;
+import org.vandv.common.communication.JsonHttpRequestExecutor;
 
 import java.io.IOException;
 import java.net.URLEncoder;

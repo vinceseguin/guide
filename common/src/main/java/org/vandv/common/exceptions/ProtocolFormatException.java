@@ -1,4 +1,4 @@
-package org.vandv.exceptions;
+package org.vandv.common.exceptions;
 
 /**
  * Exception thrown when there's an error in the protocol format.

@@ -1,11 +1,10 @@
 package org.vandv.server.client.vision;
 
 import org.apache.commons.io.IOUtils;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.core.MatOfFloat;
-import org.opencv.highgui.Highgui;
 import org.vandv.server.client.IAction;
+import org.vandv.common.vision.HistogramCalculator;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -77,35 +76,49 @@ public class VisualRecognitionAction implements IAction {
                     visualRecognitionManager.getFeatures(requestId)));
         }
 
+        imageRecognition.setSuccessor(new NullRecognition(null, null));
+
         sendResponseToClient(out, requestId, imageRecognition.handleRequest());
     }
     
     /**
      * Create a matrix with the array of data sent by the client.
      * @param data The data sent by the client.
-     * @param length The length of byte of the matrix.
-     * @param offset The offset in the data array to start from.
      * @return A matrix containing the data.
      */
     private Mat createMatFloat(float[] data) {
-        MatOfFloat imgMat = new MatOfFloat();
-        imgMat.fromArray(data);
+        Mat mat = new Mat(HistogramCalculator.H_BINS, HistogramCalculator.S_BINS, CvType.CV_32F);
 
-        return Highgui.imdecode(imgMat, Highgui.CV_LOAD_IMAGE_UNCHANGED);
+        for (int i=0; i<HistogramCalculator.H_BINS; i++) {
+
+            float[] toPutInMatrix = new float[HistogramCalculator.S_BINS];
+
+            System.arraycopy(data, i * HistogramCalculator.S_BINS, toPutInMatrix, 0, HistogramCalculator.S_BINS);
+            mat.put(i, 0, toPutInMatrix);
+
+        }
+
+        return mat;
     }
     
     /**
      * Create a matrix with the array of data sent by the client.
      * @param data The data sent by the client.
-     * @param length The length of byte of the matrix.
-     * @param offset The offset in the data array to start from.
      * @return A matrix containing the data.
      */
     private Mat createMatByte(byte[] data) {
-        MatOfByte imgMat = new MatOfByte();
-        imgMat.fromArray(data);
+        Mat mat = new Mat(data.length / 32, 32, CvType.CV_8U);
 
-        return Highgui.imdecode(imgMat, Highgui.CV_LOAD_IMAGE_UNCHANGED);
+        for (int i=0; i<data.length / 32; i++) {
+
+            byte[] toPutInMatrix = new byte[32];
+
+            System.arraycopy(data, i * 32, toPutInMatrix, 0, 32);
+            mat.put(i, 0, toPutInMatrix);
+
+        }
+
+        return mat;
     }
 
     /**

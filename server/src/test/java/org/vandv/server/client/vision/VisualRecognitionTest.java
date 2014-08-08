@@ -4,13 +4,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.opencv.core.Core;
-import org.vandv.google.MapsApiObjectFactory;
-import org.vandv.server.client.vision.NewDestinationAction;
+import org.vandv.common.google.MapsApiObjectFactory;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 

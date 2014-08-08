@@ -1,8 +1,8 @@
 package org.vandv.client.communication;
 
 import android.os.AsyncTask;
-import org.vandv.communication.IRequestStrategy;
-import org.vandv.communication.RequestExecutor;
+import org.vandv.common.communication.IRequestStrategy;
+import org.vandv.common.communication.RequestExecutor;
 
 /**
  * Created by vinceseguin on 23/07/14.

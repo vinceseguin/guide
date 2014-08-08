@@ -1,4 +1,4 @@
-package org.vandv.communication;
+package org.vandv.common.communication;
 
 /**
  * Created by vinceseguin on 24/07/14.

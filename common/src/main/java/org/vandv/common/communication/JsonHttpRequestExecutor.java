@@ -1,4 +1,4 @@
-package org.vandv.communication;
+package org.vandv.common.communication;
 
 import java.io.ByteArrayOutputStream;
 

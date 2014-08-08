@@ -1,4 +1,4 @@
-package org.vandv.google;
+package org.vandv.common.google;
 
 /**
  * Created by vinceseguin on 10/07/14.

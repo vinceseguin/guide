@@ -3,7 +3,7 @@ package org.vandv.server.loadbalancer;
 import com.sun.management.OperatingSystemMXBean;
 
 import org.apache.commons.io.IOUtils;
-import org.vandv.communication.IRequestHandler;
+import org.vandv.common.communication.IRequestHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;

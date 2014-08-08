@@ -1,8 +1,8 @@
 package org.vandv.server.loadbalancer;
 
-import org.vandv.communication.ClientSocketManager;
-import org.vandv.communication.IRequestHandler;
-import org.vandv.exceptions.ProtocolFormatException;
+import org.vandv.common.communication.ClientSocketManager;
+import org.vandv.common.communication.IRequestHandler;
+import org.vandv.common.exceptions.ProtocolFormatException;
 import org.vandv.server.client.vision.VisualRecognitionManager;
 
 import java.io.IOException;

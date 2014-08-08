@@ -2,8 +2,8 @@ package org.vandv.server.client;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.vandv.communication.IRequestHandler;
-import org.vandv.exceptions.ProtocolFormatException;
+import org.vandv.common.communication.IRequestHandler;
+import org.vandv.common.exceptions.ProtocolFormatException;
 import org.vandv.server.client.vision.NewDestinationAction;
 import org.vandv.server.client.vision.VisualRecognitionAction;
 
@@ -11,7 +11,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Handler for client's request

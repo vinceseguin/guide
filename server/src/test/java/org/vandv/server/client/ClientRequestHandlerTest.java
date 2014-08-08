@@ -12,12 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.vandv.exceptions.ProtocolFormatException;
+import org.vandv.common.exceptions.ProtocolFormatException;
 import org.vandv.server.client.vision.NewDestinationAction;
 import org.vandv.server.client.vision.VisualRecognitionAction;
 import org.vandv.server.client.vision.VisualRecognitionManager;

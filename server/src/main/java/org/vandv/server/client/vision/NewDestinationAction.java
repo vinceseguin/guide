@@ -3,14 +3,13 @@ package org.vandv.server.client.vision;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.opencv.core.Mat;
-import org.vandv.google.MapsApiObjectFactory;
+import org.vandv.common.google.MapsApiObjectFactory;
 import org.vandv.server.client.IAction;
-import org.vandv.vision.FeatureCalculator;
-import org.vandv.vision.HistogramCalculator;
+import org.vandv.common.vision.FeatureCalculator;
+import org.vandv.common.vision.HistogramCalculator;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.List;
 
 /**
