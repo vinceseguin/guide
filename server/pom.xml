@@ -5,7 +5,33 @@
     <version>1</version>
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <path.to.opencv></path.to.opencv>
 	</properties>
+
+    <profiles>
+        <profile>
+            <id>windows_guide_profile</id>
+            <properties>
+                <path.to.opencv>C:/opencv/build/java/x64</path.to.opencv>
+            </properties>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+        </profile>
+        <profile>
+            <id>linux_guide_profile</id>
+            <properties>
+                <path.to.opencv>/usr/local/opencv/release/lib</path.to.opencv>
+            </properties>
+            <activation>
+                <os>
+                    <family>linux</family>
+                </os>
+            </activation>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -54,7 +80,7 @@
 			    <configuration>
 			        <executable>java</executable>
 			        <arguments>
-			            <argument>-Djava.library.path=C:/opencv/build/java/x64</argument>
+			            <argument>-Djava.library.path=${path.to.opencv}</argument>
 			        </arguments>
 			    </configuration>
 			</plugin>
@@ -63,7 +89,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<forkMode>once</forkMode>
-					<argLine>-Djava.library.path=C:/opencv/build/java/x64</argLine>
+					<argLine>-Djava.library.path=${path.to.opencv}</argLine>
 				</configuration>
 			</plugin>			
 		</plugins>
