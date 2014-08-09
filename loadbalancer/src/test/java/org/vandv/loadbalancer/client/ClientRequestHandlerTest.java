@@ -12,12 +12,13 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.vandv.loadbalancer.IAction;
+import org.vandv.loadbalancer.LoadBalancerRequestHandler;
 
 public class ClientRequestHandlerTest {
 
 	@Test
     public void createActionTest() {
-		ClientRequestHandler requestHandler = new ClientRequestHandler();
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
 		
 		try {
 			IAction action = requestHandler.createAction("REQUEST_ACTION:CONNECT");
@@ -28,7 +29,7 @@ public class ClientRequestHandlerTest {
 	
 	@Test
     public void createActionTest2() {
-		ClientRequestHandler requestHandler = new ClientRequestHandler();
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
 		
 		try {
 			IAction action = requestHandler.createAction("REQUEST_ACTION:NOT_VALID");
@@ -53,11 +54,11 @@ public class ClientRequestHandlerTest {
 		} catch (IOException e) {
 			Assert.fail();
 		}
-    	
-    	ClientRequestHandler requestHandler = new ClientRequestHandler();
+
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
     	try {
 			requestHandler.handleRequest(socket);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Assert.fail();
 		}
 	}

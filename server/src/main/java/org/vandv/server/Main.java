@@ -2,6 +2,7 @@ package org.vandv.server;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.opencv.core.Core;
 import org.vandv.common.communication.SocketManager;
 import org.vandv.common.exceptions.ProtocolFormatException;
 import org.vandv.server.client.ClientRequestHandler;
@@ -13,6 +14,10 @@ import java.io.IOException;
  * Created by vinceseguin on 03/08/14.
  */
 public class Main {
+
+    static {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
 
     private static final Logger logger = LogManager.getLogger(Main.class.getName());
 

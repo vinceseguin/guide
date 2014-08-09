@@ -2,6 +2,7 @@ package org.vandv.client.loadbalancer;
 
 import java.io.IOException;
 
+import org.opencv.core.Core;
 import org.vandv.common.communication.ClientSocketManager;
 import org.vandv.common.communication.IRequestHandler;
 import org.vandv.common.exceptions.ProtocolFormatException;

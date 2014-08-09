@@ -50,7 +50,8 @@ public class FeatureRecognition extends ImageRecognition {
 
         List<DMatch> goodMatches = calculateGoodMatches(matches, calculateMinDistanceBetweenMatch(matches));
 
-        return goodMatches.size() / matches.rows() >= 0.5 && successor.handleRequest();
+        logger.trace("GOOD MATCHES RATIO: " + (double)goodMatches.size() / (double)matches.rows());
+        return (double)goodMatches.size() / (double)matches.rows() >= 0.5 && successor.handleRequest();
     }
 
     /**

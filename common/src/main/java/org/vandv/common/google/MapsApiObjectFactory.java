@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 public class MapsApiObjectFactory {
 
     private static final String GEOCODING_API_URL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    private static final String STREET_VIEW_API_URL = "https://maps.googleapis.com/maps/api/streetview?size=400x400&";
+    private static final String STREET_VIEW_API_URL = "https://maps.googleapis.com/maps/api/streetview?size=500x281&";
 
     @Deprecated
     public static void getLocation(String address, final IAsyncListener<Location> listener, IRequestStrategy<String> strategy) {

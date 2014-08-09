@@ -53,7 +53,9 @@ public class VisualRecognitionRequestHandler implements IRequestHandler {
     	
 	    OutputStream out = socket.getOutputStream();
 	    IOUtils.write(sb.toString(), out);
-	    
+	    out.flush();
+        socket.shutdownOutput();
+
 	    InputStream is = socket.getInputStream();
 	    List<String> lines = IOUtils.readLines(is, "UTF-8");
 	    

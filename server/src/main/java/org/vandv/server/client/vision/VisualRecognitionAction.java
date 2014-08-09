@@ -1,6 +1,8 @@
 package org.vandv.server.client.vision;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.vandv.server.client.IAction;
@@ -23,6 +25,8 @@ public class VisualRecognitionAction implements IAction {
     private static final int PARAMS_LENGTH_LINE_INDEX = 5;
 
     private VisualRecognitionManager visualRecognitionManager;
+
+    private static final Logger logger = LogManager.getLogger(VisualRecognitionAction.class.getName());
 
     /**
      *Constructor
@@ -135,10 +139,13 @@ public class VisualRecognitionAction implements IAction {
         sb.append("REQUEST_ID:").append(requestId).append("\r\n");
         sb.append("DATA_LENGTH:1" + "\r\n").append("PARAMS_LENGTH:1" + "\r\n");
 
-        byte[] byteRecognized = new byte[] { recognized ? (byte)1 : (byte)0 };
+        byte byteRecognized = recognized ? (byte)1 : (byte)0 ;
+
+        sb.append(byteRecognized);
 
         IOUtils.write(sb.toString().getBytes(), out);
-        IOUtils.write(byteRecognized, out);
+
+        logger.trace("RECOGNIZED: " + recognized);
 
         out.flush();
     }

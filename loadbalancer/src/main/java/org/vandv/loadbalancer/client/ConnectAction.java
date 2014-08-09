@@ -13,7 +13,7 @@ import java.io.OutputStream;
  * 
  * Created by vinceseguin on 30/07/14.
  */
-class ConnectAction extends AbstractClientAction {
+public class ConnectAction extends AbstractClientAction {
 
     private static final Logger logger = LogManager.getLogger(ConnectAction.class.getName());
 
@@ -29,6 +29,7 @@ class ConnectAction extends AbstractClientAction {
 
         try {
             IOUtils.write(sb.toString(), out);
+
             out.flush();
         } catch (IOException exception) {
             logger.error(exception);

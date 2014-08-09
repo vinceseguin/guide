@@ -48,9 +48,9 @@ public class NewDestinationAction implements IAction {
 
         StringBuilder sb;
         sb = new StringBuilder();
-        sb.append("GUIDE_SERVER_CLIENT_RESPONSE");
-        sb.append("REQUEST_ID:").append(requestId);
-        sb.append("DATA_LENGTH:0");
+        sb.append("GUIDE_SERVER_CLIENT_RESPONSE\r\n");
+        sb.append("REQUEST_ID:").append(requestId).append("\r\n");
+        sb.append("DATA_LENGTH:0\r\n");
         sb.append("PARAMS_LENGTH:0");
 
         IOUtils.write(sb.toString(), out);

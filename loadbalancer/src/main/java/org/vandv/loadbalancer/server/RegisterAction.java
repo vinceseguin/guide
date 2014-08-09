@@ -5,7 +5,7 @@ package org.vandv.loadbalancer.server;
  * 
  * Created by vinceseguin on 29/07/14.
  */
-class RegisterAction extends AbstractServerAction {
+public class RegisterAction extends AbstractServerAction {
 
     @Override
     public void execute(Server server) {

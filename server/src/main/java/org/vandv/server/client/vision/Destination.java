@@ -10,6 +10,7 @@ import org.opencv.core.Mat;
 public class Destination {
     private Mat features;
     private Mat histogram;
+    private boolean startedTicking = false;
     private int timer = 0;
 
     /**
@@ -27,6 +28,7 @@ public class Destination {
      * @return The histogram.
      */
     public Mat getHistogram() {
+        startedTicking = true;
         return histogram;
     }
 
@@ -35,6 +37,7 @@ public class Destination {
      * @return The features.
      */
     public Mat getFeatures() {
+        startedTicking = true;
         return features;
     }
 
@@ -43,7 +46,9 @@ public class Destination {
      * defined in the VisualRecognitionManager class.
      */
     public void tick() {
-        this.timer += VisualRecognitionManager.TICK_DURATION;
+        if (startedTicking) {
+            this.timer += VisualRecognitionManager.TICK_DURATION;
+        }
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.Map;
 public class VisualRecognitionManager {
 
     private static final Logger logger = LogManager.getLogger(VisualRecognitionManager.class.getName());
-    public static final int TICK_DURATION = 1;
+    public static final int TICK_DURATION = 10;
     public static final int FLUSH_TIMER_LIMIT = 60;
     private IdGenerator idGenerator = new IdGenerator();
     private Map<Long, Destination> destinations = new HashMap<Long, Destination>();

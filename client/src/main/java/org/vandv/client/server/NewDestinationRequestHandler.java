@@ -49,12 +49,14 @@ public class NewDestinationRequestHandler implements IRequestHandler {
 		sb.append("REQUEST-ACTION:VISUAL_RECOGNITION\r\n");
 		sb.append("REQUEST-TYPE:REGISTER_DESTINATION\r\n");
 		sb.append("REQUEST_ID:\r\n");
-		sb.append(String.format("DATA_LENGTH:\r\n", destination.length()));
-		sb.append("PARAMS_LENGTH:\r\n");
+		sb.append(String.format("DATA_LENGTH:%d\r\n", destination.length()));
+		sb.append(String.format("PARAMS_LENGTH:%d\r\n", destination.length()));
 		sb.append(destination);
 
 		OutputStream out = socket.getOutputStream();
 		IOUtils.write(sb.toString(), out);
+        out.flush();
+        socket.shutdownOutput();
 
 		InputStream is = socket.getInputStream();
 		List<String> lines = IOUtils.readLines(is, "UTF-8");

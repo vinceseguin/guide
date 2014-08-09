@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.vandv.loadbalancer.IAction;
+import org.vandv.loadbalancer.LoadBalancerRequestHandler;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -16,7 +17,7 @@ public class ServerRequestHandlerTest {
 
     @Test
     public void createActionTest() {
-        ServerRequestHandler requestHandler = new ServerRequestHandler();
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -35,7 +36,7 @@ public class ServerRequestHandlerTest {
 
     @Test
     public void createActionTest2() {
-        ServerRequestHandler requestHandler = new ServerRequestHandler();
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -53,7 +54,7 @@ public class ServerRequestHandlerTest {
 
     @Test
     public void createActionTest3() {
-        ServerRequestHandler requestHandler = new ServerRequestHandler();
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
         List<String> lines = new ArrayList<String>();
 
         lines.add("GUIDE_SERVER_LOADBALANCER");
@@ -86,11 +87,11 @@ public class ServerRequestHandlerTest {
 		} catch (IOException e) {
 			Assert.fail();
 		}
-    	
-    	ServerRequestHandler requestHandler = new ServerRequestHandler();
+
+        LoadBalancerRequestHandler requestHandler = new LoadBalancerRequestHandler();
     	try {
 			requestHandler.handleRequest(socket);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Assert.fail();
 		}
     }
