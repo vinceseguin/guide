@@ -1,5 +1,7 @@
 package org.vandv.loadbalancer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.vandv.loadbalancer.exceptions.NoServerAvailableException;
 import org.vandv.loadbalancer.server.Server;
 
@@ -18,10 +20,12 @@ import java.util.*;
  */
 public class ServerManager {
 
+    private static final Logger logger = LogManager.getLogger(ServerManager.class.getName());
+
 	private static volatile ServerManager instance = null;
 	
     public static final int TICK_DURATION = 10;
-    public static final int FLUSH_TIMER_LIMIT = 30;
+    public static final int FLUSH_TIMER_LIMIT = 300;
 
     // We use two lists to manage the servers.
     // PriorityQueue : to quickly access the less loaded server that can handle the desired request.
@@ -33,6 +37,7 @@ public class ServerManager {
      * Private constructor (Singleton)
      */
     private ServerManager() {
+
         this.startTicking();
     }
     
@@ -62,6 +67,8 @@ public class ServerManager {
         server.setCpuLoad(0);
         this.serverPriorityQueue.add(server);
         this.serverMap.put(server.getId(), server);
+
+        logger.error("SERVER REGISTERED: " + server.getAddress() + ":" + server.getPort());
     }
 
     /**
@@ -74,6 +81,8 @@ public class ServerManager {
         remove(toUpdate);
         this.serverPriorityQueue.add(server);
         this.serverMap.put(server.getId(), server);
+
+        logger.error("SERVER UPDATED: " + server.getAddress() + ":" + server.getPort());
     }
 
     /**
@@ -92,6 +101,7 @@ public class ServerManager {
                             server.tick();
                             if (server.getTimer() >= FLUSH_TIMER_LIMIT) {
                                 remove(server);
+                                logger.error("CANNOT REACH SERVER: " + server.getAddress() + ":" + server.getPort());
                             }
                         }
                     } catch (Exception ex) {

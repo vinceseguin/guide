@@ -1,6 +1,8 @@
 package org.vandv.loadbalancer.server;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.vandv.loadbalancer.IAction;
 import org.vandv.common.communication.IRequestHandler;
 import org.vandv.common.exceptions.InvalidActionTypeException;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 public class ServerRequestHandler implements IRequestHandler {
 
+    private static final Logger logger = LogManager.getLogger(ServerRequestHandler.class.getName());
+
     private static final String REGISTER_ACTION = "REGISTER";
     private static final String UPDATE_ACTION = "UPDATE";
 
@@ -31,7 +35,7 @@ public class ServerRequestHandler implements IRequestHandler {
 
             socket.close();
         } catch (Exception exception) {
-            //TODO
+            logger.error(exception);
         }
     }
 

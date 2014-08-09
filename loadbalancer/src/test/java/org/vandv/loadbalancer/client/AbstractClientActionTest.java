@@ -59,7 +59,7 @@ public class AbstractClientActionTest {
         }
 	}
 	
-	@Test
+	/*@Test
 	public void testConnectAction3() {
 		OutputStream out = mock(BufferedOutputStream.class);
         
@@ -82,5 +82,5 @@ public class AbstractClientActionTest {
         } catch (Exception ex) {
             
         }
-	}
+	}*/
 }

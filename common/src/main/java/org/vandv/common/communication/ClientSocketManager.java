@@ -6,6 +6,7 @@ import javax.net.ssl.SSLSocketFactory;
 import org.vandv.common.exceptions.ProtocolFormatException;
 
 import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Created by vinceseguin on 06/08/14.
@@ -19,9 +20,7 @@ public class ClientSocketManager {
     }
 
     public void start(String address, int port) throws IOException, ProtocolFormatException {
-        SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-        SSLSocket socket = (SSLSocket) sslSocketFactory.createSocket(address, port);
-        socket.startHandshake();
+        Socket socket = new Socket(address, port);
         handler.handleRequest(socket);
         socket.close();
     }

@@ -1,6 +1,8 @@
 package org.vandv.common.communication;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -26,18 +28,16 @@ public class SocketManager {
 
         //KeyStore ks = KeyStore.getInstance("guide");
 
-        SSLServerSocketFactory sslServerSocketFactory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        SSLServerSocket sslServerSocket = (SSLServerSocket) sslServerSocketFactory.createServerSocket(port);
-
+        ServerSocket serverSocket = new ServerSocket(port);
         while (true) {
 
-            final SSLSocket sslSocket = (SSLSocket) sslServerSocket.accept();
+            final Socket socket = serverSocket.accept();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        requestHandler.handleRequest(sslSocket);
-                        sslSocket.close();
+                        requestHandler.handleRequest(socket);
+                        socket.close();
                     } catch (IOException | ProtocolFormatException exception) {
                         //TODO
                     }

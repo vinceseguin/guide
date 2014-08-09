@@ -36,8 +36,8 @@ public class UpdateRequestHandler implements IRequestHandler {
         sb.append("REQUEST-TYPE:VISUAL_RECOGNITION\r\n");
         sb.append("SERVER-IP:" + this.ip + "\r\n");
         sb.append("SERVER-PORT:" + this.port + "\r\n");
-        sb.append("SERVER-NUMBER-OF-REQUEST" + numberOfRequest + "\r\n");
-        sb.append("SERVER-CPU-LOAD" + operatingSystemMXBean.getSystemCpuLoad());
+        sb.append("SERVER-NUMBER-OF-REQUEST:" + numberOfRequest + "\r\n");
+        sb.append("SERVER-CPU-LOAD:" + ((int)operatingSystemMXBean.getSystemCpuLoad() * 100));
 
         OutputStream out = socket.getOutputStream();
 

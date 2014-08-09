@@ -91,7 +91,23 @@
 					<forkMode>once</forkMode>
 					<argLine>-Djava.library.path=${path.to.opencv}</argLine>
 				</configuration>
-			</plugin>			
+			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>maven</executable>
+                    <mainClass>org.vandv.server.Main</mainClass>
+                </configuration>
+            </plugin>
 		</plugins>
     </build>
 </project>

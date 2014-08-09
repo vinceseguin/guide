@@ -1,5 +1,7 @@
 package org.vandv.server.loadbalancer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.vandv.common.communication.ClientSocketManager;
 import org.vandv.common.communication.IRequestHandler;
 import org.vandv.common.exceptions.ProtocolFormatException;
@@ -12,7 +14,9 @@ import java.io.IOException;
  */
 public class ServerRegistrationManager {
 
-    private static final int TICK_DURATION = 100;
+    private static final Logger logger = LogManager.getLogger(ServerRegistrationManager.class.getName());
+
+    private static final int TICK_DURATION = 10;
     private VisualRecognitionManager visualRecognitionManager;
     private String myIp;
     private int myPort;
@@ -20,7 +24,9 @@ public class ServerRegistrationManager {
     private int loadBalancerPort;
 
     public ServerRegistrationManager(String myIp, int myPort,
-                                     String loadBalancerIp, int loadBalancerPort) {
+                                     String loadBalancerIp, int loadBalancerPort)
+                                     throws IOException, ProtocolFormatException  {
+
         this.visualRecognitionManager = VisualRecognitionManager.getInstance();
         this.myIp = myIp;
         this.myPort = myPort;
@@ -31,19 +37,18 @@ public class ServerRegistrationManager {
         updateInfo();
     }
 
-    public void registerServer() {
+    private void registerServer() throws IOException, ProtocolFormatException {
+        logger.error("START REGISTERING AS:" + myIp + ":" + myPort);
+
         IRequestHandler handler = new RegisterRequestHandler(myIp, myPort);
 
         ClientSocketManager clientSocketManager = new ClientSocketManager(handler);
+        clientSocketManager.start(loadBalancerIp, loadBalancerPort);
 
-        try {
-            clientSocketManager.start(loadBalancerIp, loadBalancerPort);
-        } catch (IOException | ProtocolFormatException ex) {
-            //TODO
-        }
+        logger.error("REGISTERING AS:" + myIp + ":" + myPort);
     }
 
-    public void updateInfo() {
+    private void updateInfo() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,8 +62,10 @@ public class ServerRegistrationManager {
                         ClientSocketManager clientSocketManager = new ClientSocketManager(handler);
 
                         clientSocketManager.start(loadBalancerIp, loadBalancerPort);
-                    } catch (Exception ex) {
-                        //TODO
+
+                        logger.error("UPDATING AS:" + myIp + ":" + myPort);
+                    } catch (InterruptedException | IOException | ProtocolFormatException  ie) {
+                        logger.error(ie);
                     }
                 }
             }
