@@ -68,7 +68,7 @@ public class ServerManager {
         this.serverPriorityQueue.add(server);
         this.serverMap.put(server.getId(), server);
 
-        logger.error("SERVER REGISTERED: " + server.getAddress() + ":" + server.getPort());
+        logger.trace("SERVER REGISTERED: " + server.getAddress() + ":" + server.getPort());
     }
 
     /**
@@ -82,7 +82,7 @@ public class ServerManager {
         this.serverPriorityQueue.add(server);
         this.serverMap.put(server.getId(), server);
 
-        logger.error("SERVER UPDATED: " + server.getAddress() + ":" + server.getPort());
+        logger.trace("SERVER UPDATED: " + server.getAddress() + ":" + server.getPort());
     }
 
     /**
@@ -101,11 +101,11 @@ public class ServerManager {
                             server.tick();
                             if (server.getTimer() >= FLUSH_TIMER_LIMIT) {
                                 remove(server);
-                                logger.error("CANNOT REACH SERVER: " + server.getAddress() + ":" + server.getPort());
+                                logger.trace("CANNOT REACH SERVER: " + server.getAddress() + ":" + server.getPort());
                             }
                         }
                     } catch (Exception ex) {
-                    	ex.printStackTrace();
+                    	logger.error(ex);
                     }
                 }
             }

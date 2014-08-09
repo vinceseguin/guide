@@ -1,6 +1,8 @@
 package org.vandv.loadbalancer.client;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.vandv.loadbalancer.IAction;
 import org.vandv.common.communication.IRequestHandler;
 import org.vandv.common.exceptions.InvalidActionTypeException;
@@ -17,6 +19,7 @@ import java.util.List;
  */
 public class ClientRequestHandler implements IRequestHandler {
 
+    private static final Logger logger = LogManager.getLogger(ClientRequestHandler.class.getName());
     private static final String CONNECT_ACTION = "CONNECT";
 
     @Override
@@ -28,7 +31,7 @@ public class ClientRequestHandler implements IRequestHandler {
             IAction action = createAction(lines.get(1));
             action.execute(socket.getOutputStream(), lines);
         } catch (Exception exception) {
-        	// exception.printStackTrace();
+        	logger.error(exception);
         }
     }
 

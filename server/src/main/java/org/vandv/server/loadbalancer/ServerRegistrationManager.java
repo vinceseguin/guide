@@ -16,7 +16,7 @@ public class ServerRegistrationManager {
 
     private static final Logger logger = LogManager.getLogger(ServerRegistrationManager.class.getName());
 
-    private static final int TICK_DURATION = 10;
+    private static final int TICK_DURATION = 100;
     private VisualRecognitionManager visualRecognitionManager;
     private String myIp;
     private int myPort;
@@ -38,14 +38,13 @@ public class ServerRegistrationManager {
     }
 
     private void registerServer() throws IOException, ProtocolFormatException {
-        logger.error("START REGISTERING AS:" + myIp + ":" + myPort);
 
         IRequestHandler handler = new RegisterRequestHandler(myIp, myPort);
 
         ClientSocketManager clientSocketManager = new ClientSocketManager(handler);
         clientSocketManager.start(loadBalancerIp, loadBalancerPort);
 
-        logger.error("REGISTERING AS:" + myIp + ":" + myPort);
+        logger.trace("REGISTERING AS:" + myIp + ":" + myPort);
     }
 
     private void updateInfo() {
@@ -63,7 +62,7 @@ public class ServerRegistrationManager {
 
                         clientSocketManager.start(loadBalancerIp, loadBalancerPort);
 
-                        logger.error("UPDATING AS:" + myIp + ":" + myPort);
+                        logger.trace("UPDATING AS:" + myIp + ":" + myPort);
                     } catch (InterruptedException | IOException | ProtocolFormatException  ie) {
                         logger.error(ie);
                     }

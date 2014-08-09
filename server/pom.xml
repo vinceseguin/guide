@@ -89,7 +89,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<forkMode>once</forkMode>
-					<argLine>-Djava.library.path=${path.to.opencv}</argLine>
+					<argLine>-Djava.library.path=${path.to.opencv} -Dlog4j.configurationFile=log4j2.xml</argLine>
 				</configuration>
 			</plugin>
             <plugin>

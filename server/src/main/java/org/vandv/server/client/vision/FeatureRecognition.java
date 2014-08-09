@@ -1,5 +1,7 @@
 package org.vandv.server.client.vision;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDMatch;
 import org.opencv.features2d.DMatch;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 public class FeatureRecognition extends ImageRecognition {
 
+    private static final Logger logger = LogManager.getLogger(FeatureRecognition.class.getName());
     private static final double ABSOLUTE_MINIMAL_DISTANCE = 0.02;
     private static final double DISTANCE_MULTIPLIER = 2;
 
@@ -42,6 +45,7 @@ public class FeatureRecognition extends ImageRecognition {
     @Override
     public boolean handleRequest() {
 
+        logger.trace("STARTING FEATURE RECOGNITION");
         MatOfDMatch matches = matchDescriptors(obj1, obj2);
 
         List<DMatch> goodMatches = calculateGoodMatches(matches, calculateMinDistanceBetweenMatch(matches));

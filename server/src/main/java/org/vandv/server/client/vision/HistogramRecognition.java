@@ -1,5 +1,7 @@
 package org.vandv.server.client.vision;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
@@ -10,6 +12,7 @@ import org.opencv.imgproc.Imgproc;
  */
 public class HistogramRecognition extends ImageRecognition {
 
+    private static final Logger logger = LogManager.getLogger(HistogramRecognition.class.getName());
     private static final double HISTOGRAM_THRESHOLD = 0.25;
 
     /**
@@ -32,6 +35,7 @@ public class HistogramRecognition extends ImageRecognition {
      */
     @Override
     public boolean handleRequest() {
+        logger.trace("STARTING HISTOGRAM RECOGNITION");
         return compareHistogram(obj1, obj2) >= HISTOGRAM_THRESHOLD && successor.handleRequest();
     }
 

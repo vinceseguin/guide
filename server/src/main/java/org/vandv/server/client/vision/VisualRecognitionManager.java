@@ -1,5 +1,7 @@
 package org.vandv.server.client.vision;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.opencv.core.Mat;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Map;
  */
 public class VisualRecognitionManager {
 
+    private static final Logger logger = LogManager.getLogger(VisualRecognitionManager.class.getName());
     public static final int TICK_DURATION = 1;
     public static final int FLUSH_TIMER_LIMIT = 60;
     private IdGenerator idGenerator = new IdGenerator();
@@ -51,6 +54,7 @@ public class VisualRecognitionManager {
      * @return the request id the client will have to use for the future
      */
     public long registerDestination(Destination destination) {
+        logger.trace(String.format("REGISTERING DESTINATION"));
         long id = idGenerator.generate();
         this.destinations.put(id, destination);
         return id;
@@ -102,6 +106,7 @@ public class VisualRecognitionManager {
                             destination.tick();
                             if (destination.getTimer() >= FLUSH_TIMER_LIMIT) {
                                 destinations.remove(key);
+                                logger.trace("REMOVED DESTINATION");
                             }
                         }
                     } catch (Exception ex) {

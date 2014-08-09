@@ -84,7 +84,7 @@
 			    <configuration>
 			        <executable>java</executable>
 			        <arguments>
-			            <argument>-Djava.library.path=${path.to.opencv}</argument>
+			            <argument>-Djava.library.path=${path.to.opencv} -Dlog4j.configurationFile=log4j2.xml</argument>
 			        </arguments>
 			    </configuration>
 			</plugin>
